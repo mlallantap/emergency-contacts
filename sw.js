@@ -1,4 +1,4 @@
-const CACHE_NAME = "arkade-emergency-v3";
+const CACHE_NAME = "arkade-emergency-v4";
 const ASSETS_TO_CACHE = [
   "./",
   "./index.html",

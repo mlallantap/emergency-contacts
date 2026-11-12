@@ -56,12 +56,80 @@
       box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
 
+    /* Immediate Emergency SOS Section */
+    .sos-section {
+      max-width: 680px;
+      margin: 14px auto 6px;
+      padding: 0 16px;
+    }
+    .sos-box {
+      background: #fef2f2;
+      border: 1.5px solid #fecaca;
+      border-radius: 12px;
+      padding: 12px;
+      box-shadow: 0 1px 4px rgba(185, 28, 28, 0.08);
+    }
+    .sos-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .sos-title {
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #991b1b;
+    }
+    .sos-112 {
+      background: #dc2626;
+      color: white;
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 5px 10px;
+      border-radius: 20px;
+      box-shadow: 0 1px 3px rgba(220, 38, 38, 0.3);
+    }
+    .sos-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    .sos-tile {
+      background: white;
+      border: 1px solid #fee2e2;
+      border-radius: 10px;
+      padding: 9px 11px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    }
+    .sos-tile:active { transform: scale(0.98); background: #fff1f2; }
+    .sos-left { display: flex; align-items: center; gap: 8px; }
+    .sos-icon { font-size: 1.2rem; }
+    .sos-label { font-size: 0.8rem; font-weight: 700; color: var(--text); display: block; }
+    .sos-sub { font-size: 0.68rem; color: var(--muted); display: block; }
+    .sos-num {
+      font-size: 0.98rem;
+      font-weight: 800;
+      color: #b91c1c;
+      background: #fee2e2;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+
     .filters {
       display: flex;
       gap: 8px;
       overflow-x: auto;
       padding: 12px 16px 6px;
       scrollbar-width: none;
+      max-width: 680px;
+      margin: 0 auto;
     }
     .filters::-webkit-scrollbar { display: none; }
     .chip {
@@ -122,6 +190,61 @@
     <div class="subtitle">Emergency Contact Directory</div>
     <input type="search" id="searchInput" placeholder="Search police, hospital, lift, gas, pharmacy...">
   </header>
+
+  <!-- Immediate Emergency Quick-Dial Section -->
+  <section class="sos-section" aria-label="Immediate Emergency Contacts">
+    <div class="sos-box">
+      <div class="sos-header">
+        <span class="sos-title">⚡ Immediate Emergency Helplines</span>
+        <a href="tel:112" class="sos-112">📞 National SOS: 112</a>
+      </div>
+      <div class="sos-grid">
+        <a href="tel:100" class="sos-tile">
+          <div class="sos-left">
+            <span class="sos-icon">🚓</span>
+            <div>
+              <span class="sos-label">Police</span>
+              <span class="sos-sub">Mumbai Control</span>
+            </div>
+          </div>
+          <span class="sos-num">100</span>
+        </a>
+
+        <a href="tel:101" class="sos-tile">
+          <div class="sos-left">
+            <span class="sos-icon">🚒</span>
+            <div>
+              <span class="sos-label">Fire Brigade</span>
+              <span class="sos-sub">Mumbai Fire</span>
+            </div>
+          </div>
+          <span class="sos-num">101</span>
+        </a>
+
+        <a href="tel:108" class="sos-tile">
+          <div class="sos-left">
+            <span class="sos-icon">🚑</span>
+            <div>
+              <span class="sos-label">Ambulance</span>
+              <span class="sos-sub">24/7 Medical</span>
+            </div>
+          </div>
+          <span class="sos-num">108</span>
+        </a>
+
+        <a href="tel:1930" class="sos-tile">
+          <div class="sos-left">
+            <span class="sos-icon">🛡️</span>
+            <div>
+              <span class="sos-label">Cyber Crime</span>
+              <span class="sos-sub">Fraud Helpline</span>
+            </div>
+          </div>
+          <span class="sos-num">1930</span>
+        </a>
+      </div>
+    </div>
+  </section>
 
   <div class="filters" id="categoryFilters"></div>
   <div class="container" id="contactList"></div>

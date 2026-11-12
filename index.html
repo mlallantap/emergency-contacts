@@ -31,12 +31,8 @@
       padding: 16px;
       position: sticky;
       top: 0;
-      z-index: 200;
+      z-index: 100;
       box-shadow: 0 2px 8px rgba(0,0,0,0.18);
-    }
-    .header-inner {
-      max-width: 680px;
-      margin: 0 auto;
     }
     .header-top {
       display: flex;
@@ -47,177 +43,40 @@
     header h1 { font-size: 1.15rem; font-weight: 800; letter-spacing: 0.2px; }
     .subtitle { font-size: 0.8rem; opacity: 0.9; margin-bottom: 12px; }
     .badge { font-size: 0.68rem; background: rgba(255,255,255,0.2); padding: 3px 8px; border-radius: 12px; font-weight: 600; white-space: nowrap; }
-
-    /* Search Bar & Autocomplete Dropdown */
-    .search-wrapper {
-      position: relative;
-      width: 100%;
-    }
+    
     #searchInput {
       width: 100%;
-      padding: 11px 36px 11px 14px;
+      padding: 11px 14px;
       border: none;
       border-radius: 8px;
       font-size: 0.95rem;
       outline: none;
       background: white;
       color: var(--text);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.12);
-    }
-    #clearSearch {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: #e5e7eb;
-      border: none;
-      color: #374151;
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      font-size: 0.75rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: none;
-      align-items: center;
-      justify-content: center;
-    }
-    .suggestions-dropdown {
-      position: absolute;
-      top: calc(100% + 6px);
-      left: 0;
-      right: 0;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.22);
-      border: 1px solid var(--border);
-      max-height: 280px;
-      overflow-y: auto;
-      z-index: 300;
-      display: none;
-      color: var(--text);
-    }
-    .suggestion-item {
-      padding: 10px 14px;
-      border-bottom: 1px solid #f3f4f6;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      cursor: pointer;
-    }
-    .suggestion-item:last-child { border-bottom: none; }
-    .suggestion-item:hover, .suggestion-item:active { background: #fef2f2; }
-    .sug-info { flex: 1; min-width: 0; }
-    .sug-name { font-size: 0.9rem; font-weight: 700; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .sug-meta { font-size: 0.75rem; color: var(--muted); }
-    .sug-call {
-      background: #15803d;
-      color: white;
-      text-decoration: none;
-      font-size: 0.78rem;
-      font-weight: 700;
-      padding: 6px 10px;
-      border-radius: 6px;
-      white-space: nowrap;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
 
-    /* Section 1: Immediate Emergency Contacts */
-    .sos-section {
-      max-width: 680px;
-      margin: 14px auto 6px;
-      padding: 0 16px;
-    }
-    .sos-box {
-      background: #fef2f2;
-      border: 1.5px solid #fecaca;
-      border-radius: 12px;
-      padding: 12px;
-      box-shadow: 0 1px 4px rgba(185, 28, 28, 0.08);
-    }
-    .sos-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-    .sos-title {
-      font-size: 0.78rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: #991b1b;
-    }
-    .sos-112 {
-      background: #dc2626;
-      color: white;
-      text-decoration: none;
-      font-size: 0.78rem;
-      font-weight: 800;
-      padding: 5px 10px;
-      border-radius: 20px;
-    }
-    .sos-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
-    }
-    .sos-tile {
-      background: white;
-      border: 1px solid #fee2e2;
-      border-radius: 10px;
-      padding: 9px 11px;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .sos-tile:active { transform: scale(0.98); background: #fff1f2; }
-    .sos-left { display: flex; align-items: center; gap: 8px; }
-    .sos-icon { font-size: 1.2rem; }
-    .sos-label { font-size: 0.8rem; font-weight: 700; color: var(--text); display: block; }
-    .sos-sub { font-size: 0.68rem; color: var(--muted); display: block; }
-    .sos-num {
-      font-size: 0.98rem;
-      font-weight: 800;
-      color: #b91c1c;
-      background: #fee2e2;
-      padding: 3px 8px;
-      border-radius: 6px;
-    }
-
-    /* All Categories Visible at Top */
-    .categories-wrapper {
-      max-width: 680px;
-      margin: 10px auto 4px;
-      padding: 0 16px;
-    }
-    .categories-label {
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--muted);
-      margin-bottom: 6px;
-    }
     .filters {
       display: flex;
-      flex-wrap: wrap;
-      gap: 7px;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 12px 16px 6px;
+      scrollbar-width: none;
     }
+    .filters::-webkit-scrollbar { display: none; }
     .chip {
       background: white;
       border: 1px solid #d1d5db;
-      padding: 6px 12px;
+      padding: 6px 14px;
       border-radius: 20px;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       font-weight: 600;
       color: var(--text);
+      white-space: nowrap;
       cursor: pointer;
     }
     .chip.active { background: var(--text); color: white; border-color: var(--text); }
 
-    /* Original Contact Cards */
     .container { padding: 10px 16px; display: flex; flex-direction: column; gap: 10px; max-width: 680px; margin: 0 auto; }
     
     .card {
@@ -250,96 +109,130 @@
       box-shadow: 0 1px 3px rgba(21, 128, 61, 0.25);
     }
     .call-btn:active { transform: scale(0.97); background: #166534; }
-    .empty { text-align: center; color: var(--muted); margin-top: 30px; font-size: 0.95rem; }
+    .empty { text-align: center; color: var(--muted); margin-top: 40px; font-size: 0.95rem; }
   </style>
 </head>
 <body>
 
   <header>
-    <div class="header-inner">
-      <div class="header-top">
-        <h1>🚨 Arkade Aspire CHSL</h1>
-        <span class="badge" id="statusBadge">Offline Ready</span>
-      </div>
-      <div class="subtitle">Emergency Contact Directory</div>
-      
-      <div class="search-wrapper">
-        <input type="text" id="searchInput" autocomplete="off" placeholder="Search police, hospital, lift, gas, pharmacy...">
-        <button id="clearSearch" aria-label="Clear search">✕</button>
-        <div class="suggestions-dropdown" id="suggestionsBox"></div>
-      </div>
+    <div class="header-top">
+      <h1>🚨 Arkade Aspire CHSL</h1>
+      <span class="badge" id="statusBadge">Offline Ready</span>
     </div>
+    <div class="subtitle">Emergency Contact Directory</div>
+    <input type="search" id="searchInput" placeholder="Search police, hospital, lift, gas, pharmacy...">
   </header>
 
-  <!-- Section 1: Immediate Emergency Contacts -->
-  <section class="sos-section" aria-label="Immediate Emergency Contacts">
-    <div class="sos-box">
-      <div class="sos-header">
-        <span class="sos-title">⚡ Immediate Emergency Helplines</span>
-        <a href="tel:112" class="sos-112">📞 National SOS: 112</a>
-      </div>
-      <div class="sos-grid">
-        <a href="tel:100" class="sos-tile">
-          <div class="sos-left">
-            <span class="sos-icon">🚓</span>
-            <div>
-              <span class="sos-label">Police</span>
-              <span class="sos-sub">Mumbai Control</span>
-            </div>
-          </div>
-          <span class="sos-num">100</span>
-        </a>
-
-        <a href="tel:101" class="sos-tile">
-          <div class="sos-left">
-            <span class="sos-icon">🚒</span>
-            <div>
-              <span class="sos-label">Fire Brigade</span>
-              <span class="sos-sub">Mumbai Fire</span>
-            </div>
-          </div>
-          <span class="sos-num">101</span>
-        </a>
-
-        <a href="tel:108" class="sos-tile">
-          <div class="sos-left">
-            <span class="sos-icon">🚑</span>
-            <div>
-              <span class="sos-label">Ambulance</span>
-              <span class="sos-sub">24/7 Medical</span>
-            </div>
-          </div>
-          <span class="sos-num">108</span>
-        </a>
-
-        <a href="tel:1930" class="sos-tile">
-          <div class="sos-left">
-            <span class="sos-icon">🛡️</span>
-            <div>
-              <span class="sos-label">Cyber Crime</span>
-              <span class="sos-sub">Fraud Helpline</span>
-            </div>
-          </div>
-          <span class="sos-num">1930</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- All Categories Shown at Top -->
-  <div class="categories-wrapper">
-    <div class="categories-label">Filter by Category</div>
-    <div class="filters" id="categoryFilters"></div>
-  </div>
-
-  <!-- Contact Cards -->
+  <div class="filters" id="categoryFilters"></div>
   <div class="container" id="contactList"></div>
 
   <script>
     const contacts = [
       // Police & Helplines
-      { category: "Police", name: "Mumbai Police Control Room", details: "24/7 Emergency Response", phones: ["100", "112"] },
+      { category: "Police", name: "Mumbai Police Control Room", details: "24/7 Emergency Response", phones: ["100"] },
       { category: "Police", name: "Vanrai Police Station", details: "Local Jurisdiction Police Station", phones: ["022-226861677"] },
       { category: "Police", name: "Senior Citizen Helpline", details: "Mumbai Police Senior Citizen Support", phones: ["14567"] },
       { category: "Police", name: "Child Helpline", details: "Emergency Child Protection", phones: ["1098"] },
-      { category: "Police",
+      { category: "Police", name: "Cyber Crime Helpline", details: "National Cyber Crime Reporting", phones: ["1930"] },
+      { category: "Police", name: "Women Helpline", details: "24/7 Women Safety & Assistance", phones: ["1091"] },
+      { category: "Police", name: "Traffic Police Control Room", details: "Mumbai Traffic Control", phones: ["022-24937755"] },
+      { category: "Police", name: "RTO Helpline", details: "Regional Transport Office", phones: ["022-26323315"] },
+
+      // Fire & Ambulance
+      { category: "Fire & Ambulance", name: "Dindoshi Fire Station / Goregaon", details: "Fire Brigade Emergency", phones: ["022-28406729", "022-28712869", "9076333101", "9076333102", "9076333103", "9076333104", "9076333105"] },
+      { category: "Fire & Ambulance", name: "Govt. Ambulance", details: "24/7 Emergency Medical Transport", phones: ["102", "108"] },
+
+      // Hospitals & Blood Banks
+      { category: "Medical", name: "Criticare Hospital (Malad West)", details: "24/7 Emergency & Casualty", phones: ["022-69092000"] },
+      { category: "Medical", name: "Thunga Hospital (Malad West)", details: "24/7 Emergency & Casualty", phones: ["022-69084200"] },
+      { category: "Medical", name: "SRV Hospital (Goregaon West)", details: "24/7 Emergency & Casualty", phones: ["7209600600"] },
+      { category: "Medical", name: "Trauma Care Hospital (Jogeshwari East)", details: "Municipal Trauma Center", phones: ["022-28224080", "022-28224081", "022-28224082", "022-28224083"] },
+      { category: "Medical", name: "Nanavati Hospital (Vile Parle West)", details: "Super Speciality Hospital", phones: ["022-68360000"] },
+      { category: "Medical", name: "Meenatai Thakare Blood Bank", details: "Goregaon West", phones: ["022-28797586"] },
+      { category: "Medical", name: "Manas Blood Bank", details: "Jogeshwari", phones: ["022-26784546"] },
+
+      // 24x7 Pharmacies
+      { category: "Pharmacy", name: "Life Care Medicine (Goregaon East)", details: "24x7 Pharmacy", phones: ["7045926373", "8850172674"] },
+      { category: "Pharmacy", name: "Noble Plus (Goregaon West)", details: "24x7 Pharmacy", phones: ["9769766655"] },
+      { category: "Pharmacy", name: "Wellness Forever (Malad East)", details: "24x7 Pharmacy", phones: ["9930111183"] },
+
+      // Utilities & Civic
+      { category: "Utilities & Civic", name: "Schindler Lift Helpline", details: "Schindler House, Hiranandani Gardens, Powai, Mumbai-400076", phones: ["18002095438"] },
+      { category: "Utilities & Civic", name: "Mahanagar Gas (MGL) Emergency", details: "Near Infinity Mall, New Link Road, Oshiwara, Andheri West, Mumbai-400053", phones: ["18002669944"] },
+      { category: "Utilities & Civic", name: "Adani Power", details: "Western Urban Road, MHB Colony, Dindoshi, Malad East, Mumbai-400097", phones: ["19122"] },
+      { category: "Utilities & Civic", name: "Tata Electricity", details: "Western Urban Road, MHB Colony, Dindoshi, Malad East, Mumbai-400097", phones: ["19122"] },
+      { category: "Utilities & Civic", name: "BMC (P South Ward Office)", details: "CTS No. 746, S.V. Road, Opp. City Centre Mall, Goregaon (West)", phones: ["022-28722133", "022-28727000", "8879188284"] },
+
+      // Airports
+      { category: "Airports", name: "Mumbai Airport - Terminal 1", details: "Chhatrapati Shivaji Maharaj International Airport, Santacruz", phones: ["022-66851010", "022-26829903"] },
+      { category: "Airports", name: "Mumbai Airport - Terminal 2", details: "Chhatrapati Shivaji Maharaj International Airport, Sahar", phones: ["022-28318055", "022-28318041"] },
+      { category: "Airports", name: "Navi Mumbai International Airport", details: "Airport Helpline", phones: ["1800-572-111111"] },
+
+      // Animal Help
+      { category: "Animal Help", name: "Animal Help Helpline", details: "Emergency Animal Rescue", phones: ["9820277824"] },
+      { category: "Animal Help", name: "PETA (Goregaon West)", details: "Animal Rescue & Support", phones: ["9820122602"] }
+    ];
+
+    let activeCategory = "All";
+    const listEl = document.getElementById("contactList");
+    const filtersEl = document.getElementById("categoryFilters");
+    const searchInput = document.getElementById("searchInput");
+
+    const categories = ["All", ...new Set(contacts.map(c => c.category))];
+    categories.forEach(cat => {
+      const btn = document.createElement("button");
+      btn.className = "chip" + (cat === "All" ? " active" : "");
+      btn.textContent = cat;
+      btn.onclick = () => {
+        document.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
+        btn.classList.add("active");
+        activeCategory = cat;
+        renderContacts();
+      };
+      filtersEl.appendChild(btn);
+    });
+
+    function renderContacts() {
+      const query = searchInput.value.toLowerCase().trim();
+      const filtered = contacts.filter(c => {
+        const matchesCat = activeCategory === "All" || c.category === activeCategory;
+        const matchesText = c.name.toLowerCase().includes(query) || 
+                            c.details.toLowerCase().includes(query) || 
+                            c.category.toLowerCase().includes(query) ||
+                            c.phones.some(p => p.includes(query));
+        return matchesCat && matchesText;
+      });
+
+      if (filtered.length === 0) {
+        listEl.innerHTML = `<div class="empty">No matching contacts found.</div>`;
+        return;
+      }
+
+      listEl.innerHTML = filtered.map(c => `
+        <div class="card">
+          <div class="category-tag">${c.category}</div>
+          <div class="name">${c.name}</div>
+          <div class="details">${c.details}</div>
+          <div class="btn-group">
+            ${c.phones.map(phone => `
+              <a href="tel:${phone.replace(/[^+\d]/g, '')}" class="call-btn">📞 ${phone}</a>
+            `).join("")}
+          </div>
+        </div>
+      `).join("");
+    }
+
+    searchInput.addEventListener("input", renderContacts);
+    renderContacts();
+
+    // Register Service Worker for Offline Caching
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js")
+          .then(() => console.log("Service Worker registered"))
+          .catch(err => console.error("SW failed:", err));
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "Arkade Aspire CHSL Emergency Contacts",
+  "short_name": "Arkade SOS",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f3f4f6",
+  "theme_color": "#b91c1c",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='110' fill='%23b91c1c'/><path d='M216 112h80v104h104v80H296v104h-80V296H112v-80h104z' fill='white'/></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

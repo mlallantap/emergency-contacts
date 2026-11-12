@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Arkade Aspire CHSL - Emergency Contacts</title>
+  
+  <!-- PWA & Home Screen Icon Metadata -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#b91c1c">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Arkade SOS">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23b91c1c'/><path d='M42 22h16v20h20v16H58v20H42V58H22V42h20z' fill='white'/></svg>">
+
+  <style>
+    :root {
+      --primary: #b91c1c;
+      --bg: #f3f4f6;
+      --card: #ffffff;
+      --text: #111827;
+      --muted: #4b5563;
+      --border: #e5e7eb;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background: var(--bg); color: var(--text); padding-bottom: 40px; }
+    
+    header {
+      background: var(--primary);
+      color: white;
+      padding: 16px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    }
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+    header h1 { font-size: 1.15rem; font-weight: 800; letter-spacing: 0.2px; }
+    .subtitle { font-size: 0.8rem; opacity: 0.9; margin-bottom: 12px; }
+    .badge { font-size: 0.68rem; background: rgba(255,255,255,0.2); padding: 3px 8px; border-radius: 12px; font-weight: 600; white-space: nowrap; }
+    
+    #searchInput {
+      width: 100%;
+      padding: 11px 14px;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      outline: none;
+      background: white;
+      color: var(--text);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .filters {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 12px 16px 6px;
+      scrollbar-width: none;
+    }
+    .filters::-webkit-scrollbar { display: none; }
+    .chip {
+      background: white;
+      border: 1px solid #d1d5db;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text);
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .chip.active { background: var(--text); color: white; border-color: var(--text); }
+
+    .container { padding: 10px 16px; display: flex; flex-direction: column; gap: 10px; max-width: 680px; margin: 0 auto; }
+    
+    .card {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 14px 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+      border: 1px solid var(--border);
+    }
+    .category-tag { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.6px; color: var(--primary); font-weight: 700; margin-bottom: 3px; }
+    .name { font-size: 1.02rem; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+    .details { font-size: 0.82rem; color: var(--muted); line-height: 1.35; margin-bottom: 10px; }
+    
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .call-btn {
+      background: #15803d;
+      color: white;
+      text-decoration: none;
+      padding: 9px 14px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 1px 3px rgba(21, 128, 61, 0.25);
+    }
+    .call-btn:active { transform: scale(0.97); background: #166534; }
+    .empty { text-align: center; color: var(--muted); margin-top: 40px; font-size: 0.95rem; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-top">
+      <h1>🚨 Arkade Aspire CHSL</h1>
+      <span class="badge" id="statusBadge">Offline Ready</span>
+    </div>
+    <div class="subtitle">Emergency Contact Directory</div>
+    <input type="search" id="searchInput" placeholder="Search police, hospital, lift, gas, pharmacy...">
+  </header>
+
+  <div class="filters" id="categoryFilters"></div>
+  <div class="container" id="contactList"></div>
+
+  <script>
+    const contacts = [
+      // Police & Helplines
+      { category: "Police", name: "Mumbai Police Control Room", details: "24/7 Emergency Response", phones: ["100"] },
+      { category: "Police", name: "Vanrai Police Station", details: "Local Jurisdiction Police Station", phones: ["022-226861677"] },
+      { category: "Police", name: "Senior Citizen Helpline", details: "Mumbai Police Senior Citizen Support", phones: ["14567"] },
+      { category: "Police", name: "Child Helpline", details: "Emergency Child Protection", phones: ["1098"] },
+      { category: "Police", name: "Cyber Crime Helpline", details: "National Cyber Crime Reporting", phones: ["1930"] },
+      { category: "Police", name: "Women Helpline", details: "24/7 Women Safety & Assistance", phones: ["1091"] },
+      { category: "Police", name: "Traffic Police Control Room", details: "Mumbai Traffic Control", phones: ["022-24937755"] },
+      { category: "Police", name: "RTO Helpline", details: "Regional Transport Office", phones: ["022-26323315"] },
+
+      // Fire & Ambulance
+      { category: "Fire & Ambulance", name: "Dindoshi Fire Station / Goregaon", details: "Fire Brigade Emergency", phones: ["022-28406729", "022-28712869", "9076333101", "9076333102", "9076333103", "9076333104", "9076333105"] },
+      { category: "Fire & Ambulance", name: "Govt. Ambulance", details: "24/7 Emergency Medical Transport", phones: ["102", "108"] },
+
+      // Hospitals & Blood Banks
+      { category: "Medical", name: "Criticare Hospital (Malad West)", details: "24/7 Emergency & Casualty", phones: ["022-69092000"] },
+      { category: "Medical", name: "Thunga Hospital (Malad West)", details: "24/7 Emergency & Casualty", phones: ["022-69084200"] },
+      { category: "Medical", name: "SRV Hospital (Goregaon West)", details: "24/7 Emergency & Casualty", phones: ["7209600600"] },
+      { category: "Medical", name: "Trauma Care Hospital (Jogeshwari East)", details: "Municipal Trauma Center", phones: ["022-28224080", "022-28224081", "022-28224082", "022-28224083"] },
+      { category: "Medical", name: "Nanavati Hospital (Vile Parle West)", details: "Super Speciality Hospital", phones: ["022-68360000"] },
+      { category: "Medical", name: "Meenatai Thakare Blood Bank", details: "Goregaon West", phones: ["022-28797586"] },
+      { category: "Medical", name: "Manas Blood Bank", details: "Jogeshwari", phones: ["022-26784546"] },
+
+      // 24x7 Pharmacies
+      { category: "Pharmacy", name: "Life Care Medicine (Goregaon East)", details: "24x7 Pharmacy", phones: ["7045926373", "8850172674"] },
+      { category: "Pharmacy", name: "Noble Plus (Goregaon West)", details: "24x7 Pharmacy", phones: ["9769766655"] },
+      { category: "Pharmacy", name: "Wellness Forever (Malad East)", details: "24x7 Pharmacy", phones: ["9930111183"] },
+
+      // Utilities & Civic
+      { category: "Utilities & Civic", name: "Schindler Lift Helpline", details: "Schindler House, Hiranandani Gardens, Powai, Mumbai-400076", phones: ["18002095438"] },
+      { category: "Utilities & Civic", name: "Mahanagar Gas (MGL) Emergency", details: "Near Infinity Mall, New Link Road, Oshiwara, Andheri West, Mumbai-400053", phones: ["18002669944"] },
+      { category: "Utilities & Civic", name: "Adani Power", details: "Western Urban Road, MHB Colony, Dindoshi, Malad East, Mumbai-400097", phones: ["19122"] },
+      { category: "Utilities & Civic", name: "Tata Electricity", details: "Western Urban Road, MHB Colony, Dindoshi, Malad East, Mumbai-400097", phones: ["19122"] },
+      { category: "Utilities & Civic", name: "BMC (P South Ward Office)", details: "CTS No. 746, S.V. Road, Opp. City Centre Mall, Goregaon (West)", phones: ["022-28722133", "022-28727000", "8879188284"] },
+
+      // Airports
+      { category: "Airports", name: "Mumbai Airport - Terminal 1", details: "Chhatrapati Shivaji Maharaj International Airport, Santacruz", phones: ["022-66851010", "022-26829903"] },
+      { category: "Airports", name: "Mumbai Airport - Terminal 2", details: "Chhatrapati Shivaji Maharaj International Airport, Sahar", phones: ["022-28318055", "022-28318041"] },
+      { category: "Airports", name: "Navi Mumbai International Airport", details: "Airport Helpline", phones: ["1800-572-111111"] },
+
+      // Animal Help
+      { category: "Animal Help", name: "Animal Help Helpline", details: "Emergency Animal Rescue", phones: ["9820277824"] },
+      { category: "Animal Help", name: "PETA (Goregaon West)", details: "Animal Rescue & Support", phones: ["9820122602"] }
+    ];
+
+    let activeCategory = "All";
+    const listEl = document.getElementById("contactList");
+    const filtersEl = document.getElementById("categoryFilters");
+    const searchInput = document.getElementById("searchInput");
+
+    const categories = ["All", ...new Set(contacts.map(c => c.category))];
+    categories.forEach(cat => {
+      const btn = document.createElement("button");
+      btn.className = "chip" + (cat === "All" ? " active" : "");
+      btn.textContent = cat;
+      btn.onclick = () => {
+        document.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
+        btn.classList.add("active");
+        activeCategory = cat;
+        renderContacts();
+      };
+      filtersEl.appendChild(btn);
+    });
+
+    function renderContacts() {
+      const query = searchInput.value.toLowerCase().trim();
+      const filtered = contacts.filter(c => {
+        const matchesCat = activeCategory === "All" || c.category === activeCategory;
+        const matchesText = c.name.toLowerCase().includes(query) || 
+                            c.details.toLowerCase().includes(query) || 
+                            c.category.toLowerCase().includes(query) ||
+                            c.phones.some(p => p.includes(query));
+        return matchesCat && matchesText;
+      });
+
+      if (filtered.length === 0) {
+        listEl.innerHTML = `<div class="empty">No matching contacts found.</div>`;
+        return;
+      }
+
+      listEl.innerHTML = filtered.map(c => `
+        <div class="card">
+          <div class="category-tag">${c.category}</div>
+          <div class="name">${c.name}</div>
+          <div class="details">${c.details}</div>
+          <div class="btn-group">
+            ${c.phones.map(phone => `
+              <a href="tel:${phone.replace(/[^+\d]/g, '')}" class="call-btn">📞 ${phone}</a>
+            `).join("")}
+          </div>
+        </div>
+      `).join("");
+    }
+
+    searchInput.addEventListener("input", renderContacts);
+    renderContacts();
+
+    // Register Service Worker for Offline Caching
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js")
+          .then(() => console.log("Service Worker registered"))
+          .catch(err => console.error("SW failed:", err));
+      });
+    }
+  </script>
+</body>
+</html>
